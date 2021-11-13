@@ -15,7 +15,8 @@ class CreateImagesTable extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->id()->autoIncrement();
-            $table->uuid('name');
+            $table->string('asset_image');
+            $table->string('token_image')->nullable();
         });
     }
 
