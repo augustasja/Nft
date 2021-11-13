@@ -10019,3 +10019,36 @@ h3 {
     border-color: #dee2e6;
   }
 }
+.sidebar {
+  color: red;
+}
+
+.body {
+  color: blue;
+}
+
+.pagination {
+  justify-content: center;
+}
+
+.page-link:hover {
+  background-color: #dcdcdc;
+  color: #000000;
+}
+
+.page-item:target {
+  border: none;
+}
+
+.page-item.active .page-link {
+  color: #000000;
+  background-color: #dcdcdc;
+  border: none;
+}
+
+.page-link {
+  border: none;
+  border-radius: 10%;
+  margin: 0px 2px;
+  color: #000000;
+}

@@ -1,14 +1,24 @@
 <template>
     <div class="container">
-        <div class="sidebar"></div>
+        <div class="row vh-100">
+            <Sidebar/>
+            <Body/>
+        </div>
         <div class="content"></div>
     </div>
 </template>
 
 <script>
-    export default {
-        mounted() {
-            console.log('Component mounted.')
-        }
+import Sidebar from "./layout/Sidebar";
+import Body from "./layout/Body";
+
+export default {
+    components: {
+        Sidebar,
+        Body
+    },
+    mounted() {
+        console.log('Component mounted.')
     }
+}
 </script>
