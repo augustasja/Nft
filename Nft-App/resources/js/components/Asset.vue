@@ -4,7 +4,7 @@
         <div class="card-body p-2">
             <div class="card-title m-0 collection">
                 <p class="d-inline">{{ asset.collection_name }}</p>
-                <span class="d-inline float-right" v-if="asset.image.token_image">
+                <span class="d-inline float-right" v-if="asset.price_eth != 0">
                     <img class="token mb-1" v-bind:src="asset.image.token_image" alt="">
                     <span class="d-inline">{{ asset.price_eth }}</span>
                 </span>
@@ -12,6 +12,9 @@
             <p class="card-title font-weight-bold">{{ asset.name }}</p>
         </div>
         <div class="card-body border-top p-2">
+            <span class="d-inline float-left" v-if="asset.price_eth != 0">
+                {{asset.contract_address}}
+            </span>
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                  class="bi bi-suit-heart float-right" viewBox="0 0 16 16">
                 <path

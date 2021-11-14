@@ -2,13 +2,9 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Asset;
 use App\Models\Image;
 use App\Services\OpenSea\OpenSeaApi;
 use Illuminate\Console\Command;
-use GuzzleHttp\Client;
-use Symfony\Component\HttpFoundation\Exception\BadRequestException;
-use Illuminate\Database\Eloquent\Model;
 
 class FetchApi extends Command
 {
@@ -41,33 +37,53 @@ class FetchApi extends Command
      */
     public function handle()
     {
-        $this->info("Fetching data and seeding database...");
-        $offset = 0;
-        $api = new OpenSeaApi();
-        foreach (range(1, 200) as $i) {
-            $body = $api->fetch($offset);
-            $this->populate_db($body);
-            $offset += 50;
+        try{
+            $this->info("Fetching data and seeding database...");
+            $offset = 0;
+            $api = new OpenSeaApi();
+
+            foreach (range(1, 200) as $i) {
+                $body = $api->fetch($offset);
+                if($body != null){
+                    $this->populate_db($body);
+                    $offset += 50;
+                }
+            }
+            return $this->info("Successfully fetched and populated");
+
+        } catch (\Exception $e) {
+            return $this->error("There was an error while processing command");
         }
-        return $this->info("Successfully fetched and populated");
     }
 
+    /**
+     * @param $data
+     */
     private function populate_db($data)
     {
         foreach ($data as $item) {
             foreach ($item as $prop) {
+                $price_eth = 0;
+                if ($prop['last_sale'] != null) {
+                    $usd_of_eth = round($prop['last_sale']['payment_token']['usd_price'], 2);
+                    if ($prop['last_sale']['total_price'] != 0) {
+                        $total_price = substr($prop['last_sale']['total_price'], 0, 5);
+                        $price_eth = round(($total_price / $usd_of_eth), 3);
+                    }
+                }
                 $asset = [
                     'asset_id' => $prop['id'],
                     'name' => $prop['name'],
                     'collection_name' => $prop['collection']['name'],
-                    'price_eth' => $prop['last_sale'] != null ? $prop['last_sale']['payment_token']['eth_price'] : 0,
+                    'price_eth' => $price_eth,
                     'token_name' => $prop['last_sale'] != null ? $prop['last_sale']['payment_token']['name'] : '',
                     'contract_name' => $prop['asset_contract']['name'],
                     'contract_address' => $prop['asset_contract']['address'],
                 ];
                 $image = [
                     'asset_image' => $prop['image_url'],
-                    'token_image' => $prop['last_sale'] != null ? $prop['last_sale']['payment_token']['image_url'] : ''
+                    'token_image' => $prop['last_sale'] != null && $prop['last_sale']['total_price'] != 0
+                                                        ? $prop['last_sale']['payment_token']['image_url'] : ''
                 ];
                 $image_record = Image::Create($image);
                 $image_record->asset()->Create($asset);

@@ -16,10 +16,10 @@ class CreateAssetsTable extends Migration
         Schema::create('assets', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->bigInteger('asset_id');
-            $table->string('name')->nullable(); // CryptoPunk #2141
+            $table->string('name')->nullable();
             $table->string('collection_name');
-            $table->double('price_eth')->nullable(); // last listed price in eth
-            $table->string('token_name')->nullable(); // eth, btc etc..
+            $table->double('price_eth')->nullable();
+            $table->string('token_name')->nullable();
             $table->string('contract_name');
             $table->string('contract_address');
             $table->foreignId('image_id')->constrained()->cascadeOnDelete();

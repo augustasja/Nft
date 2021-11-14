@@ -2,7 +2,7 @@
     <div class="col">
         <Searchbar @updateInput="updateSearchValue"/>
         <div class="row">
-            <div class="col-md-3 my-2" v-for="asset in assets.data" :key="asset.id">
+            <div class="col-md-3 my-2 p-1" v-for="asset in assets.data" :key="asset.id">
                 <Asset :asset="asset"/>
             </div>
         </div>

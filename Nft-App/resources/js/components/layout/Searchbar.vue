@@ -1,7 +1,7 @@
 <template>
     <div class="row m-0 my-2">
         <input
-            class="form-control search shadow-none needs-validation"
+            class="form-control search shadow-none"
             type="text"
             placeholder="Search"
             v-bind:value="searchInput"
@@ -22,7 +22,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-
-</style>
