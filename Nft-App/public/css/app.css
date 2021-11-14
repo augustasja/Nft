@@ -10019,6 +10019,10 @@ h3 {
     border-color: #dee2e6;
   }
 }
+.asset-address {
+  font-size: 9px;
+}
+
 .card:hover {
   transform: scale(1.03);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
@@ -10026,8 +10030,8 @@ h3 {
   transition: 0.3s transform cubic-bezier(0.155, 1.105, 0.295, 1.12), 0.3s box-shadow, 0.3s;
 }
 
-.card-body {
-  font-size: 9px;
+.card-title {
+  font-size: 16px;
 }
 
 .collection p {

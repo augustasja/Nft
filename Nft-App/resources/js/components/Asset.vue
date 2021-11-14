@@ -12,7 +12,7 @@
             <p class="card-title font-weight-bold">{{ asset.name }}</p>
         </div>
         <div class="card-body border-top p-2">
-            <span class="d-inline float-left" v-if="asset.price_eth != 0">
+            <span class="d-inline float-left asset-address" v-if="asset.price_eth != 0">
                 {{asset.contract_address}}
             </span>
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
