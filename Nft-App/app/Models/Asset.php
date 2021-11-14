@@ -14,8 +14,6 @@ class Asset extends Model
         'name',
         'collection_name',
         'price_eth',
-        'token_name',
-        'contract_name',
         'contract_address',
         'image_id'
     ];

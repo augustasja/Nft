@@ -19,8 +19,6 @@ class CreateAssetsTable extends Migration
             $table->string('name')->nullable();
             $table->string('collection_name');
             $table->double('price_eth')->nullable();
-            $table->string('token_name')->nullable();
-            $table->string('contract_name');
             $table->string('contract_address');
             $table->foreignId('image_id')->constrained()->cascadeOnDelete();
         });

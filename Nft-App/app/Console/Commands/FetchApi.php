@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Asset;
 use App\Models\Image;
 use App\Services\OpenSea\OpenSeaApi;
 use Illuminate\Console\Command;
@@ -38,6 +39,11 @@ class FetchApi extends Command
     public function handle()
     {
         try{
+            if(Asset::exists())
+            {
+                return $this->alert("Data already fetched");
+            }
+
             $this->info("Fetching data and seeding database...");
             $offset = 0;
             $api = new OpenSeaApi();
@@ -76,8 +82,6 @@ class FetchApi extends Command
                     'name' => $prop['name'],
                     'collection_name' => $prop['collection']['name'],
                     'price_eth' => $price_eth,
-                    'token_name' => $prop['last_sale'] != null ? $prop['last_sale']['payment_token']['name'] : '',
-                    'contract_name' => $prop['asset_contract']['name'],
                     'contract_address' => $prop['asset_contract']['address'],
                 ];
                 $image = [
