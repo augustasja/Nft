@@ -1,6 +1,6 @@
 <template>
-    <div class="col border border-primary">
-        <Searchbar @updateInput="updateSearchValue" />
+    <div class="col">
+        <Searchbar @updateInput="updateSearchValue"/>
         <div class="row">
             <div class="col-md-3 my-2" v-for="asset in assets.data" :key="asset.id">
                 <Asset :asset="asset"/>
@@ -20,7 +20,7 @@ export default {
         return {
             searchValue: '',
             isLoading: true,
-            assets: {}
+            assets: {},
         }
     },
     components: {
@@ -28,7 +28,7 @@ export default {
         Asset
     },
     mounted() {
-         this.loadData();
+        this.loadData();
     },
     methods: {
         loadData(page = 1) {
@@ -45,7 +45,12 @@ export default {
         },
         updateSearchValue(params) {
             this.searchValue = params;
-            this.loadData();
+            let re = /[^a-zA-Z0-9 ]/;
+            if(re.test(this.searchValue)){
+                alert("Special characters not allowed");
+            } else {
+                this.loadData();
+            }
         }
     },
     name: "Body"

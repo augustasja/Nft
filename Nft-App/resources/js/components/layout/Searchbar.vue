@@ -1,7 +1,7 @@
 <template>
-    <div class="row d-flex justify-content-start m-2">
+    <div class="row m-0 my-2">
         <input
-            class="form-control"
+            class="form-control search shadow-none needs-validation"
             type="text"
             placeholder="Search"
             v-bind:value="searchInput"

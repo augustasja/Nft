@@ -11,12 +11,16 @@ class AssetController extends Controller
     public function index(Request $request)
     {
         try {
-            return Asset::when(\request('search'), function ($query) {
-                $query->where('name', 'like', '%' . \request('search') . '%');
-            })->with('image')->orderBy('id', 'desc')->paginate(50);
+            $page = $_GET['page'];
+            $search = $_GET['search'];
+            $assets = cache()->remember("assets-{$page}-{$search}", 60, function () {
+                return Asset::when(\request('search'), function ($query) {
+                    $query->where('name', 'like', '%' . \request('search') . '%');
+                })->with('image')->paginate(50);
+            });
+            return $assets;
         } catch (\Exception $ex) {
             return $ex->getMessage();
         }
-
     }
 }
