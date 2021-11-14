@@ -9,5 +9,5 @@
  - run ```npm install```
  - run ```php artisan key:generate```
  - run ```php artisan migrate```
- - run command ```php artisan api:fetch```
+ - run ```php artisan api:fetch```
  - run ```php artisan serve```
